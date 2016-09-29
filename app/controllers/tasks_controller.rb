@@ -6,8 +6,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-   @tasks = Task.where(user_id: params[:user_id]).where.not(done: true)
-                .order(updated_at: :desc)
+   @tasks = Task.all
    @user = User.find(params[:user_id])
    @control=0
  end
@@ -18,14 +17,12 @@ class TasksController < ApplicationController
   end
 
   def draft
-      @tasks = Task.where(user_id: params[:user_id]).where.not(done: true)
-                   .order(updated_at: :desc)
+      @tasks = Task.all
       @user = User.find(params[:user_id])
   end
 
   def delete
-      @tasks = Task.where(user_id: params[:user_id]).where.not(done: true)
-                   .order(updated_at: :desc)
+      @tasks = Task.all
       @user = User.find(params[:user_id])
   end
 
@@ -87,7 +84,6 @@ class TasksController < ApplicationController
 
     def correct_user
       @user = User.find(params[:user_id])
-      redirect_to(user_tasks_path(current_user)) unless current_user == @user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
