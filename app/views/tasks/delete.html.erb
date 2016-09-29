@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
+<p id="notice"><%= notice %></p>
+<h1>削除一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+    <% if task.status==2 then %>
+      <tr>
+        <td><%= task.user.name %></td>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= link_to 'Show', user_task_path(task.user, task) %></td>
+        <td><%= link_to 'Edit', edit_user_task_path(task.user, task) %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task', new_user_task_path(@user) %>
+
+
+</div>
+</div>

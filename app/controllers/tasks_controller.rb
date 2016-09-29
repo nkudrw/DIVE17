@@ -9,11 +9,24 @@ class TasksController < ApplicationController
    @tasks = Task.where(user_id: params[:user_id]).where.not(done: true)
                 .order(updated_at: :desc)
    @user = User.find(params[:user_id])
+   @control=0
  end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+  end
+
+  def draft
+      @tasks = Task.where(user_id: params[:user_id]).where.not(done: true)
+                   .order(updated_at: :desc)
+      @user = User.find(params[:user_id])
+  end
+
+  def delete
+      @tasks = Task.where(user_id: params[:user_id]).where.not(done: true)
+                   .order(updated_at: :desc)
+      @user = User.find(params[:user_id])
   end
 
   # GET /tasks/new
@@ -32,7 +45,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to user_tasks_url, notice: 'タスクを登録しました。' }
+        format.html { redirect_to user_tasks_url, notice: 'ブログを登録しました。' }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -47,7 +60,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to user_tasks_url, notice: 'タスクを編集しました。' }
+        format.html { redirect_to user_tasks_url, notice: 'ブログを編集しました。' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -61,7 +74,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to user_tasks_url, notice: 'タスクを削除しました。' }
+      format.html { redirect_to user_tasks_url, notice: 'ブログを削除しました。' }
       format.json { head :no_content }
     end
   end
